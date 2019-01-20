@@ -142,6 +142,28 @@ void quadratic_eq(float a, float b, float c, float* x1, float* x2)
 	*x1 = (-b+d)/(2*a);
 	*x2 = (-b-d)/(2*a);
 }
+void season()
+{
+	int month;
+	printf("Input number of month: ");
+	scanf("%d",&month);
+	if (month>=3&&month<=5)
+	{
+		printf("Spring\n");
+	}
+	else if(month>=6&&month<=8)
+	{
+		printf("Summer\n");
+	}
+	else if(month>=9&&month<=11)
+	{
+		printf("Autumn\n");
+	}
+	else printf("Winter\n");
+	return;
+	
+	
+}
 int operations = 0;
 int power(int base, int sign) {
   int result = 1;
@@ -188,6 +210,7 @@ int main(int argc, const char** argv) {
   printf("x^2-5x+6=0\n");
   quadratic_eq(1,-5,6,&x1,&x2);
   printf("x1=%f.3,x2=%f.3\n",x1,x2);
+  season();
   printf("%d\n", reverse(12345) + 1);
   printf("%d\n", power(2, 31));
   printf("%d\n", operations);
