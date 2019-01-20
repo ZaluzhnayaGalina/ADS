@@ -6,6 +6,7 @@
  */
 #include <stdio.h>
 #include <stdlib.h>
+#include<math.h>
 
 int GCD(int a, int b) {
   while (a != b) {
@@ -129,6 +130,18 @@ int simpe_max(int a, int b)
 		return a;
 	return b;
 }
+void quadratic_eq(float a, float b, float c, float* x1, float* x2)
+{
+	if (a==0)
+	{
+		printf("Это вообще не квадратное уравнение!");
+		return;
+	}
+	float d = b*b-4*a*c;
+	d = sqrt(d);
+	*x1 = (-b+d)/(2*a);
+	*x2 = (-b-d)/(2*a);
+}
 int operations = 0;
 int power(int base, int sign) {
   int result = 1;
@@ -156,13 +169,15 @@ int fastPower(int base, int sign) {
 }
 
 int main(int argc, const char** argv) {
+  int a=3, b=6;
+  float x1,x2;
   printf("%d\n", GCD(120, 70));
   printf("%d\n", divGCD(70, 120));
   //  printf("%f\n", mean(10));
   //  average();
   hw_average1();
   hw_average2();
-  int a=3, b=6;
+  
   printf("a=%d, b=%d,before swap1\n",a,b);
   swap1(&a,&b);  
   printf("a=%d, b=%d,after swap1\n",a,b);
@@ -170,6 +185,9 @@ int main(int argc, const char** argv) {
   printf("a=%d, b=%d,after swap2\n",a,b);
   printf("%bmi(60,1.73): %.3f\n", hw_bmi(60, 1.73));
   printf("max(2,7,8,1)=%d\n",max(2,7,8,1));
+  printf("x^2-5x+6=0\n");
+  quadratic_eq(1,-5,6,&x1,&x2);
+  printf("x1=%f.3,x2=%f.3\n",x1,x2);
   printf("%d\n", reverse(12345) + 1);
   printf("%d\n", power(2, 31));
   printf("%d\n", operations);
