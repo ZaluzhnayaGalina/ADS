@@ -164,6 +164,23 @@ void season()
 	
 	
 }
+void checkmate_coords()
+{
+	int x1,y1,x2,y2;
+	printf("Input coordinates of first cell\n");
+	scanf("%d",&x1);
+	scanf("%d",&y1);
+	printf("Input coordinates of second cell\n");
+	scanf("%d",&x2);
+	scanf("%d",&y2);
+	if ((((x1-x2)%2==0) && ((y1-y2)%2==0))||(((x1-x2)%2!=0) && ((y1-y2)%2!=0)))
+	{
+		printf("Cells have the same color\n");
+	}
+	else
+		printf("Cells' colors are different\n!");
+	return;
+}
 int operations = 0;
 int power(int base, int sign) {
   int result = 1;
@@ -211,6 +228,7 @@ int main(int argc, const char** argv) {
   quadratic_eq(1,-5,6,&x1,&x2);
   printf("x1=%f.3,x2=%f.3\n",x1,x2);
   season();
+  checkmate_coords();
   printf("%d\n", reverse(12345) + 1);
   printf("%d\n", power(2, 31));
   printf("%d\n", operations);
