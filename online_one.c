@@ -60,6 +60,39 @@ void average() {
   else
 	printf("%s\n", "No input");
 }
+void hw_average1() {
+  int counter = 0;
+  float sum = 0;
+  int in=0;
+  while(in!=-1)
+  {
+	  sum+=in;
+	  counter++;
+	  scanf("%d",&in);
+  }
+  counter--;//первый раз был лишним, можно поставить counter=-1  в начале, но выглядит противоестественно;
+  if (counter != 0)
+	printf("mean = %.2f\n", (float) (sum / counter));
+  else
+	printf("%s\n", "No input");
+}
+void hw_average2() {
+  int counter = 0;
+  float sum = 0;
+  int in;
+  while(1)//второй вариант
+  {	
+	  scanf("%d",&in);
+	  if (in==-1)
+		  break;
+	  sum+=in;
+	  counter++;
+  }
+  if (counter != 0)
+	printf("mean = %.2f\n", (float) (sum / counter));
+  else
+	printf("%s\n", "No input");
+}
 
 int reverse(int n) {
   int t = 0;
@@ -101,6 +134,8 @@ int main(int argc, const char** argv) {
   printf("%d\n", divGCD(70, 120));
   //  printf("%f\n", mean(10));
   //  average();
+  hw_average1();
+  hw_average2();
   printf("%d\n", reverse(12345) + 1);
   printf("%d\n", power(2, 31));
   printf("%d\n", operations);
