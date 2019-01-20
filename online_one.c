@@ -119,7 +119,16 @@ int reverse(int n) {
   }
   return t;
 }
-
+int max(int a, int b, int c, int d)
+{
+	return simpe_max(simpe_max(a,b),simpe_max(c,d));
+}
+int simpe_max(int a, int b)
+{
+	if (a>=b)
+		return a;
+	return b;
+}
 int operations = 0;
 int power(int base, int sign) {
   int result = 1;
@@ -160,6 +169,7 @@ int main(int argc, const char** argv) {
   swap2(&a,&b);  
   printf("a=%d, b=%d,after swap2\n",a,b);
   printf("%bmi(60,1.73): %.3f\n", hw_bmi(60, 1.73));
+  printf("max(2,7,8,1)=%d\n",max(2,7,8,1));
   printf("%d\n", reverse(12345) + 1);
   printf("%d\n", power(2, 31));
   printf("%d\n", operations);
