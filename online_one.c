@@ -93,7 +93,11 @@ void hw_average2() {
   else
 	printf("%s\n", "No input");
 }
-
+float hw_bmi(float mass_kg, float height_metres)
+{
+	if (height_metres!=0)
+		return mass_kg/(height_metres*height_metres);
+}
 int reverse(int n) {
   int t = 0;
   while (n > 0) {
@@ -136,6 +140,7 @@ int main(int argc, const char** argv) {
   //  average();
   hw_average1();
   hw_average2();
+  printf("%bmi(60,1.73): %.3f\n", hw_bmi(60, 1.73));
   printf("%d\n", reverse(12345) + 1);
   printf("%d\n", power(2, 31));
   printf("%d\n", operations);
