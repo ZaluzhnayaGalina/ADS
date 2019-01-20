@@ -98,6 +98,19 @@ float hw_bmi(float mass_kg, float height_metres)
 	if (height_metres!=0)
 		return mass_kg/(height_metres*height_metres);
 }
+void swap1(int* a, int* b)
+{
+	int tmp=*a;
+	*a=*b;
+	*b=tmp;
+	return;
+}
+void swap2(int *a, int *b)
+{
+	*a-=*b;//в a лежит a-b
+	*b+=*a;//b+(a-b)=a;
+	*a=*b-*a;//a-(a-b)=b;
+}
 int reverse(int n) {
   int t = 0;
   while (n > 0) {
@@ -140,6 +153,12 @@ int main(int argc, const char** argv) {
   //  average();
   hw_average1();
   hw_average2();
+  int a=3, b=6;
+  printf("a=%d, b=%d,before swap1\n",a,b);
+  swap1(&a,&b);  
+  printf("a=%d, b=%d,after swap1\n",a,b);
+  swap2(&a,&b);  
+  printf("a=%d, b=%d,after swap2\n",a,b);
   printf("%bmi(60,1.73): %.3f\n", hw_bmi(60, 1.73));
   printf("%d\n", reverse(12345) + 1);
   printf("%d\n", power(2, 31));
