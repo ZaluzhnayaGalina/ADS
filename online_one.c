@@ -173,7 +173,7 @@ void checkmate_coords()
 	printf("Input coordinates of second cell\n");
 	scanf("%d",&x2);
 	scanf("%d",&y2);
-	if ((((x1-x2)%2==0) && ((y1-y2)%2==0))||(((x1-x2)%2!=0) && ((y1-y2)%2!=0)))
+	if ((x1+x2+y1+y2)%2==0)
 	{
 		printf("Cells have the same color\n");
 	}
