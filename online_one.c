@@ -181,6 +181,23 @@ void checkmate_coords()
 		printf("Cells' colors are different\n!");
 	return;
 }
+void division()
+{
+	int N, K;
+	printf("Input two positive numbers N and K (N>K):\n");
+	scanf("%d",&N);
+	scanf("%d",&K);
+	int d=0, r=0;
+	while(N>=K)
+	{
+		N-=K;
+		d++;
+	}
+	r=N;
+	printf("d=%d\n", d);
+	printf("r=%d\n", r);
+	return;
+}
 int operations = 0;
 int power(int base, int sign) {
   int result = 1;
@@ -229,6 +246,7 @@ int main(int argc, const char** argv) {
   printf("x1=%f.3,x2=%f.3\n",x1,x2);
   season();
   checkmate_coords();
+  division();
   printf("%d\n", reverse(12345) + 1);
   printf("%d\n", power(2, 31));
   printf("%d\n", operations);
