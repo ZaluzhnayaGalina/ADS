@@ -15,7 +15,19 @@ int fastPow(int a, int b)
 	else
 		return a*fastPow(a, b-1);
 }
-
+int transformOperations(int n0, int nk)
+{
+	if (nk>n0)
+	{
+	if (nk==n0+1)
+		return 1;
+	if (nk%2==0)
+		return transformOperations(n0, nk/2)+transformOperations(n0, nk-1);
+	else
+		return transformOperations(n0, nk-1);
+	}
+	else return 0;
+}
 char* decTobin(int a, char* result)
 {
 	if (a>0)
@@ -52,6 +64,10 @@ int main(int argc, char** argv)
 	printf("3^5 = %d\n", pow(3,5));
 	printf("3^7 = %d\n", fastPow(3,7));
 	decTobin(257,res);
-	printf("257=%s",res );
+	printf("257=%s\n",res );
+	for(int i=3; i<=20; i++)
+	{
+		printf("Operations(%d): %d\n", i, transformOperations(3,i));
+	}
 	return 0;
 }
