@@ -15,6 +15,13 @@ int fastPow(int a, int b)
 	else
 		return a*fastPow(a, b-1);
 }
+/*
+Для получения исходного числа операций не требуется.
+n0+1 можно получить только одним способом.
+Если число N=2*M, то оно в общем случае получается либо умножением M на 2, либо (N-1)+1
+Отсюда S(2M)=S(M)+S(2M-1) - число способов получить половину + число способов получить предыдущее
+S(2M+1)=S(2M) - получается только из предыдущего
+*/
 int transformOperations(int n0, int nk)
 {
 	if (nk>n0)
@@ -26,7 +33,7 @@ int transformOperations(int n0, int nk)
 	else
 		return transformOperations(n0, nk-1);
 	}
-	else return 0;
+	else return 1;
 }
 char* decTobin(int a, char* result)
 {
