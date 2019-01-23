@@ -25,6 +25,27 @@ char* decTobin(int a, char* result)
 	}
 
 }
+/* int F(int n) {
+    if (n > 2)
+        return F(n - 1) + G(n - 2);
+    else
+        return n;
+}
+
+int G(int n) {
+    if (n > 2)
+        return G(n - 1) + F(n - 2);
+    else
+        return 3 - n;
+}
+G(6)=G(5)+F(4)=8+5=13;				F(4)=F(3)+G(2)=4+1=5;
+G(5)=G(4)+F(3)=4+4=8;				F(3)=F(2)+G(1)=2+2=4;
+G(4)=G(3)+F(2)=2+2=4;				F(2)=2;
+G(3)=G(2)+F(1)=1+1=2;				F(1)=1;
+G(2)=1;
+G(1)=2;
+*/
+
 int main(int argc, char** argv)
 {
 	char res[256]="";
