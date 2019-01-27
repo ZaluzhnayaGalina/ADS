@@ -51,6 +51,33 @@ int myBubbleSort(int* a, int n)
 		}
 	return operations;
 }
+int shakerSort(int* a, int n)
+{
+	int operations = 0;
+	int d=0;
+	while (d<n-d-1)
+	{
+		for (int i=d; i<n-d-1; i++)
+		{
+			operations++;
+			if (a[i]>a[i+1])
+			{
+				swap(a+i, a+i+1);
+			}
+		}
+		d++;
+		for(int i=n-d-1; i>=d; i--)
+		{
+			operations++;
+			if (a[i-1]>a[i])
+			{
+				swap(a+i-1, a+i);
+			}
+		}
+		d++;
+	}
+	return operations;
+}
 
 int main()
 {
@@ -63,6 +90,10 @@ int main()
 	printArray(arr, n);
 	int mbso = myBubbleSort(arr, n);
 	printf("My bubble sort operations: %d\n", mbso);
+	arr=generateArray(n);	
+	printArray(arr, n);
+	int ssso = shakerSort(arr, n);
+	printf("Shaker sort operations: %d\n", ssso);
 	printArray(arr,n);
 	return 0;
 }
