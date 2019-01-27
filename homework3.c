@@ -93,7 +93,6 @@ int binarySearch(int* a, int arrSize, int value)
 	int mid = (left+right)/2;
 	while (a[mid]!=value && left<right-1)
 	{
-		printf("left=%d, right=%d, mid=%d\n", left,right,mid);
 		if (value<a[mid])		
 			right = mid;		
 		else //value>a[mid]		
