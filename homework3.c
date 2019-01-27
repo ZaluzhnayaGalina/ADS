@@ -78,7 +78,15 @@ int shakerSort(int* a, int n)
 	}
 	return operations;
 }
-
+int linearSearch(int* a, int arrSize, int value)
+{
+	if (arrSize==1 && value!=a[0])
+		return 1;
+	if (value==a[0])
+		return 0;
+	if (value!=a[0])
+		return 1+linearSearch(a+1, arrSize-1, value);
+}
 int main()
 {
 	int n = 25;
@@ -95,5 +103,17 @@ int main()
 	int ssso = shakerSort(arr, n);
 	printf("Shaker sort operations: %d\n", ssso);
 	printArray(arr,n);
+	int searchArr[5] = {2,5,6,7,3};
+	int arrSize = 5;
+	printArray(searchArr,5);
+	int id3 = linearSearch(searchArr, arrSize, 3);
+	printf("Id of 3: %d\n", id3);
+	int id8 = linearSearch(searchArr, arrSize, 8);
+	if (id8>arrSize-1)
+		printf("8 not found\n");
+	else
+		printf("Id of 8: %d\n", id8);
+	int id6 = linearSearch(searchArr, arrSize, 6);	
+	printf("Id of 6: %d\n", id6);
 	return 0;
 }
