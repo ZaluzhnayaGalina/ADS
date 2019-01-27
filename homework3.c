@@ -54,10 +54,10 @@ int myBubbleSort(int* a, int n)
 int shakerSort(int* a, int n)
 {
 	int operations = 0;
-	int d=0;
-	while (d<n-d-1)
+	int left=0, right=n-1;
+	while (left<right)
 	{
-		for (int i=d; i<n-d-1; i++)
+		for (int i=left; i<right; i++)
 		{
 			operations++;
 			if (a[i]>a[i+1])
@@ -65,8 +65,8 @@ int shakerSort(int* a, int n)
 				swap(a+i, a+i+1);
 			}
 		}
-		d++;
-		for(int i=n-d-1; i>=d; i--)
+		right--;
+		for(int i=right; i>left; i--)
 		{
 			operations++;
 			if (a[i-1]>a[i])
@@ -74,7 +74,7 @@ int shakerSort(int* a, int n)
 				swap(a+i-1, a+i);
 			}
 		}
-		d++;
+		left++;
 	}
 	return operations;
 }
@@ -87,22 +87,41 @@ int linearSearch(int* a, int arrSize, int value)
 	if (value!=a[0])
 		return 1+linearSearch(a+1, arrSize-1, value);
 }
+int binarySearch(int* a, int arrSize, int value)
+{
+	int left=0, right = arrSize-1;
+	int mid = (left+right)/2;
+	while (a[mid]!=value && left<right-1)
+	{
+		printf("left=%d, right=%d, mid=%d\n", left,right,mid);
+		if (value<a[mid])		
+			right = mid;		
+		else //value>a[mid]		
+			left = mid;		
+		mid = (left+right)/2;	
+	}
+	if (a[mid]==value)
+		return mid;
+	else return -1;
+}
 int main()
 {
 	int n = 25;
 	int* arr=generateArray(n);	
 	printArray(arr, n);
 	int sbso = simpleBubbleSort(arr, n);
-	printf("Simple bubble sort operations: %d\n", sbso);
+	printf("Simple bubble sort operations: %d, n^2=%d\n", sbso, n*n);
 	arr=generateArray(n);	
 	printArray(arr, n);
 	int mbso = myBubbleSort(arr, n);
-	printf("My bubble sort operations: %d\n", mbso);
+	printf("My bubble sort operations: %d, n^2=%d\n", mbso, n*n);
 	arr=generateArray(n);	
 	printArray(arr, n);
 	int ssso = shakerSort(arr, n);
-	printf("Shaker sort operations: %d\n", ssso);
+	printf("Shaker sort operations: %d, n*n=%d\n", ssso, n*n);
 	printArray(arr,n);
+	int id20 = binarySearch(arr, n, 20);
+	printf("Id of 20: %d\n", id20);
 	int searchArr[5] = {2,5,6,7,3};
 	int arrSize = 5;
 	printArray(searchArr,5);
