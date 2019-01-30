@@ -30,17 +30,23 @@ int routesWithObstacles(int x, int y)
 {
 	if (x==0 && y==0 || obstaclesMap[x][y]==1)
 		return 0;
+	if (x==0&&y==1 || x==1&&y==0)
+		return 1;
 	if (x==0)
 	{
 		if (obstaclesMap[x][y-1] == 1) //если сверху препятствие, то не дойдем
 			return 0;
-		else return 1;
+		if (routesWithObstacles(x,y-1)==0)
+			return 0;
+		return 1;
 	}
 	if (y==0)
 	{
 		if (obstaclesMap[x-1][y] == 1) //если слева препятствие, то не дойдем
 			return 0;
-		else return 1;
+		if (routesWithObstacles(x-1,0)==0)
+			return 0;
+		return 1;
 	}
 	if (obstaclesMap[x][y-1] == 1 && obstaclesMap[x-1][y] == 1)
 		return 0;
@@ -55,6 +61,14 @@ int main()
 {
 	setObstacles();
 	printObstacles();
-	printf("%d\n", routesWithObstacles(M,N));
+	printf("\n");
+	for (int i = 0; i < N; i++)
+	{
+		for (int j = 0; j < M; j++)
+		{
+			printf("%d ",routesWithObstacles(i,j));
+		}
+		printf("\n");
+	}
 	return 0;
 }
