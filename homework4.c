@@ -2,10 +2,10 @@
 #include<time.h>
 #include<stdlib.h>
 
-#define N 8
+#define N 5
 #define M 5
 int obstaclesMap[M][N] ;//карта с препятствиями
-int ways[M][N];
+int board[M][N];
 void setObstacles() {
   int i;
   int j;
@@ -57,6 +57,49 @@ int routesWithObstacles(int x, int y)
 	return routesWithObstacles(x-1,y)+routesWithObstacles(x,y-1);
 		
 }
+void setBoard()
+{
+	for (int i = 0; i < N; i++)
+		for (int j = 0; j < M; j++)
+			board[i][j] = 0;
+}
+void printBoard()
+{
+	for (int i = 0; i < N; i++)
+	{
+		for (int j = 0; j < M; j++)
+			printf("%d ",board[i][j]);
+		printf("\n");
+	}
+}
+int placeHorse(int x, int y, int n)
+{
+	if (x<0 || x>=N || y < 0 || y>=M)
+		return 0;
+	if (board[x][y] != 0)
+		return 0;
+	if (n > M*N)
+		return 1;
+	board[x][y] = n;
+	if (placeHorse(x + 2, y + 1, n + 1) == 1)
+		return 1;
+	if (placeHorse(x + 1, y + 2, n + 1) == 1)
+		return 1;
+	if (placeHorse(x + 2, y - 1, n + 1) == 1)
+		return 1;
+	if (placeHorse(x + 1, y - 2, n + 1) == 1)
+		return 1;
+	if (placeHorse(x - 2, y + 1, n + 1) == 1)
+		return 1;
+	if (placeHorse(x - 1, y + 2, n + 1) == 1)
+		return 1;
+	if (placeHorse(x - 2, y - 1, n + 1) == 1)
+		return 1;
+	if (placeHorse(x - 1, y - 2, n + 1) == 1)
+		return 1;
+	board[x][y] = 0;
+	return 0;
+}
 int main()
 {
 	setObstacles();
@@ -70,5 +113,18 @@ int main()
 		}
 		printf("\n");
 	}
+	setBoard();
+	
+	for(int i=0; i<N; i++)
+		for(int j=0; j<M; j++)
+		{
+			if (placeHorse(i, j, 1) == 1)
+			{
+				printBoard();
+				printf("\n");
+				setBoard();
+			}
+		}
+	printBoard();
 	return 0;
 }
