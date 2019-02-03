@@ -107,7 +107,7 @@ T dpop(DStack *s) {
   s->size--;
   return result;
 }
-void decToBinary(int dec, char* res)
+char* decToBinary(int dec)
 {
 	Stack s;
 	s.size=0;
@@ -118,14 +118,35 @@ void decToBinary(int dec, char* res)
 		printf("%d\n", s.size);
 		dec=dec/2;
 	}
+	char* res = (char*)malloc(sizeof(char)*s.size);
 	for(int i=0; i<s.size;i++)
 		res[i]=popStack(&s);
-	res[s.size]='\0';
+	return res;
+}
+int checkSequence(char* sequence, int size)
+{
+	Stack s;
+	s.size=0;
+	s.head=NULL;
+	
+	for(int i=0; i<size;i++)
+	{
+		if (sequence[i]=="(" ||sequence[i]=="["||sequence[i]=="{")
+			push(&s, sequence[i]);
+		if (sequence[i]=")"&&popStack(&s)=="(")
+			continue;
+		if (sequence[i]="]"&&popStack(&s)=="[")
+			continue;
+		if (sequence[i]="}"&&popStack(&s)=="{")
+			continue;
+		return 0;
+		
+	}
+	
 }
 int main(int argc, const char** argv)
 {
-	char res[256]="";
-	decToBinary(5,res);
+	char* res =	decToBinary(5);
 	printf("257=%s\n",res );
 	return 0;
 }
