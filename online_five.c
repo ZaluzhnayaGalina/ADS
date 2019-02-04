@@ -73,7 +73,46 @@ typedef struct DList {
 	DNode *tail;
 	int size;
 } DStack;
+typedef struct DQueue {
+	DNode *head;
+	DNode *tail;
+	int size;
+} DQueue;
 
+void enqueue(DQueue *q, T value) {
+	DNode* temp = (DNode*)malloc(sizeof(DNode));
+	if (temp == NULL) return;
+
+	temp->data = value;
+	temp->next = NULL;
+	temp->prev = q->tail;
+
+	if (q->tail == NULL)
+		q->head = temp;
+	else
+		q->tail->next = temp;
+
+	q->tail = temp;
+	q->size++;
+}
+
+T dequeue(DQueue *s) {
+	if (s->size == 0)
+		return -1;
+
+	DNode *temp = s->head;
+	T result = s->head->data;
+	s->head = s->head->next;
+
+	if (s->size > 1)
+		s->head->prev = NULL;
+	else
+		s->tail = NULL;
+
+	free(temp);
+	s->size--;
+	return result;
+}
 void dpush(DStack *s, T value) {
 	DNode* temp = (DNode*)malloc(sizeof(DNode));
 	if (temp == NULL) return;
@@ -179,6 +218,21 @@ int main(int argc, const char** argv)
 	printf("257=%s\n", res);
 	printf("%d\n", checkSequence("()()()", 6));
 	printf("%d\n", checkSequence("{(()()", 6));
-
+		Stack s;
+	s.size = 0;
+	s.head = NULL;
+	push(&s, 'a');
+	push(&s, 'b');
+	List l = copyList(&s);
+	DQueue q;
+	q.size = 0;
+	q.head = NULL;
+	q.tail = NULL;
+	enqueue(&q, 'a');
+	enqueue(&q, 'b');
+	enqueue(&q, 'c');
+	printf("%c", dequeue(&q));
+	printf("%c", dequeue(&q));
+	printf("%c", dequeue(&q));
 	return 0;
 }
