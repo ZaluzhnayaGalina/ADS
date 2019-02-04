@@ -152,6 +152,27 @@ int checkSequence(char* sequence, int size)
 	return 0;
 
 }
+List copyList(List* list)
+{
+	List l;
+	l.size = 0;
+	l.head = (Node*)malloc(sizeof(Node));
+	l.head->data = list->head->data;
+	Node* tmp = list->head->next;
+	Node* tmp1 = l.head;
+	while(tmp!= NULL)
+	{
+		T data = tmp->data;
+		Node* node = (Node*)malloc(sizeof(Node));
+		node->data = data;
+		tmp1->next = node;
+		tmp1 = node;
+		tmp = tmp->next;
+	}
+	tmp1->next = NULL;
+	l.size = list->size;
+	return  l;
+}
 int main(int argc, const char** argv)
 {
 	char* res = decToBinary(5);
