@@ -69,6 +69,31 @@ Node* tree(int amount, int* array) {
 	}
 	return node;
 }
+int searchRecursive(int value, Node* root)
+{
+	if (!root)
+	{
+		if (value==root->data)
+			return 1;
+		if (value<root->data)
+			return searchRecursive(value, root->left);
+		else return searchRecursive(value, root->right);
+	}
+	return 0;
+}
+int search(int value, Node* root)
+{
+	Node* tmp = root;
+	while (!tmp)
+	{
+		if (value==tmp->data)
+			return 1;
+		if (value<tmp->data)
+			tmp=tmp->left;
+		else tmp=tmp->right;
+	}
+	return 0;
+}
 
 int main(int argc, const char** argv) {
 
