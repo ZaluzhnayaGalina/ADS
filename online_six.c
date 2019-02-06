@@ -32,6 +32,15 @@ void inOrderTravers(Node* root)
 		inOrderTravers(root->right);
 	}
 }
+void postOrderTravers(Node* root)
+{
+	if (root)
+	{
+		postOrderTravers(root->left);
+		postOrderTravers(root->right);
+		printf("%d ", root->data);
+	}
+}
 int tree_i = 0;
 Node* tree(int amount, int* array) {
 	Node *node;
@@ -70,9 +79,11 @@ int main(int argc, const char** argv) {
 		arr[i] = rand() % 100;
 	}
 	Node *root = tree(SIZE, arr);
-	printf("pre Order\n");
+	printf("\npre Order\n");
 	preOrderTravers(root);
-	printf("in Order\n");
+	printf("\nin Order\n");
 	inOrderTravers(root);
+	printf("\npost Order\n");
+	postOrderTravers(root);
 	return 0;
 }
