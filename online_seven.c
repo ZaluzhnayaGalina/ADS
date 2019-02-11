@@ -171,7 +171,21 @@ int lee(int sx, int sy, int ex, int ey) {
 	}
 	return 1;
 }
-
+Stack s;//graph stack
+int heightTravers(GraphNode* start)
+{
+	if (s.size==0 && start->used==1)
+	{
+		return 1;
+	}
+	push(&s, *start);
+	start->used = 1;
+	while(start->children->size!=0)
+	{
+		GraphNode child = popStack(start->children);
+		heightTravers(&child);
+	}
+}
 int main(int argc, const char** argv)
 {
 	q.head = NULL;
