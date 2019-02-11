@@ -1,24 +1,17 @@
-/*
- * online_seven.c
- *
- * Created by Ivan I. Ovchinnikov
- * at day 038 of year 2019 (Feb 07), 19:53
- */
-#include <stdio.h>
 #include <stdlib.h>
 #define T GraphNode
 typedef struct GraphNode {
-  int data;
-  int index;
-  int used;
-  struct Stack* children;
+	int data;
+	int index;
+	int used;
+	struct Stack* children;
 } GraphNode;
 typedef struct Node {
 	T data;
 	struct Node *next;
 } Node;
 
-typedef struct List {
+typedef struct Stack {
 	Node *head;
 	int size;
 } Stack;
@@ -36,15 +29,16 @@ int push(Stack *st, T val) {
 }
 
 T popStack(Stack *st) {
-	if (st->size == 0)
-		return;
+	if (st->size != 0)
+	{
 
-	Node* current = st->head;
-	T result = st->head->data;
-	st->head = st->head->next;
-	st->size--;
-	free(current);
-	return result;
+		Node* current = st->head;
+		T result = st->head->data;
+		st->head = st->head->next;
+		st->size--;
+		free(current);
+		return result;
+	}
 }
 
 typedef struct DNode {
@@ -96,93 +90,92 @@ T dequeue(DQueue *s) {
 
 DQueue q; //graph queue
 int widthTravers(GraphNode *start, GraphNode *stop) {
-  enqueue(&q, start);
-  start->used = 1;
-  while (q->size != 0) {
-	GraphNode current = dequeue(&q);
-	if (current.data == stop->data) {
-	  return 1;
-	}
+	enqueue(&q, *start);
+	start->used = 1;
+	while (q.size != 0) {
+		GraphNode current = dequeue(&q);
+		if (current.data == stop->data) {
+			return 1;
+		}
 
-	while (current->children.size != 0) {
-	  GraphNode child = popStack(current->children);
-	  if (child.used != 1){
-		enqueue(q, child);
-		child.used=1;
-	  }
+		while (current.children->size != 0) {
+			GraphNode child = popStack(current.children);
+			if (child.used != 1) {
+				enqueue(&q, child);
+				child.used = 1;
+			}
+		}
 	}
-  }
-  //clear all flags
-  return 0;
+	//clear all flags
+	return 0;
 }
 
 const int w = 12;
 const int h = 9;
 const int OBSTACLE = -1;
 const int UNVISITED = -2;
-int grid[h][w]
-int len;
+int grid[h][w];
 int pointX[h * w];
 int pointY[w * h];
 // init grid (set all unvisited)
-int dx[] = {1, 0, -1, 0};
-int dy[] = {0, 1, 0, -1};
+int dx[] = { 1, 0, -1, 0 };
+int dy[] = { 0, 1, 0, -1 };
 
 int lee(int sx, int sy, int ex, int ey) {
-  int x, y, vector, dist, stop;
-  if (sx == ex && sy == ey) return 0;
-  if (grid[sy][sx] == OBSTACLE || grid[ey][ex] == OBSTACLE) return 0;
+	int x, y, vector, dist, stop;
+	if (sx == ex && sy == ey) return 0;
+	if (grid[sy][sx] == OBSTACLE || grid[ey][ex] == OBSTACLE) return 0;
 
-  dist = 0;
-  grid[sy][sx] = dist;
-  do {
-	stop = 1;
-	for (y = 0; y < h; y++) {
-	  for (x = 0; x < w; x++) {
-		if (grid[y][x] == dist) {
-		  for (vector = 0; vector < 4; vector++) {
+	dist = 0;
+	grid[sy][sx] = dist;
+	do {
+		stop = 1;
+		for (y = 0; y < h; y++) {
+			for (x = 0; x < w; x++) {
+				if (grid[y][x] == dist) {
+					for (vector = 0; vector < 4; vector++) {
+						int nextX = x + dx[vector];
+						int nextY = y + dy[vector];
+						if (nextX >= 0 && nextX < w &&
+							nextY >= 0 && nextY < h &&
+							grid[nextY][nextX] == UNVISITED) {
+							stop = 0;
+							grid[nextY][nextX] = dist + 1;
+						}
+					}
+				}
+			}
+		}
+		dist++;
+	} while (!stop && grid[ey][ex] == UNVISITED);
+
+	if (grid[ey][ex] == UNVISITED) return 0;
+
+	int len = grid[ey][ex];
+	x = ex;
+	y = ey;
+	while (dist > 0) {
+		pointX[dist] = x;
+		pointY[dist] = y;
+		dist--;
+		for (vector = 0; vector < 4; vector++) {
 			int nextX = x + dx[vector];
 			int nextY = y + dy[vector];
 			if (nextX >= 0 && nextX < w &&
 				nextY >= 0 && nextY < h &&
-				grid[nextY][nextX] == UNVISITED){
-			  stop = 0;
-			  grid[nextY][nextX] = dist + 1;
-			}			  
-		  }
+				grid[nextY][nextX] == dist) {
+				x = nextX;
+				y = nextY;
+			}
 		}
-	  }
 	}
-	dist++;
-  } while (!stop && grid[ey][ex] == UNVISITED);
-
-  if (grid[ey][ex] == UNVISITED) return 0;
-
-  len = grid[ey][ex];
-  x = ex;
-  y = ey;
-  while (dist > 0) {
-	pointX[dist] = x;
-	pointY[dist] = y;
-	dist--;
-	for (vector = 0; vector < 4; vector++) {
-	  int nextX = x + dx[vector];
-	  int nextY = y + dy[vector];
-	  if (nextX >= 0 && nextX < w &&
-		  nextY >= 0 && nextY < h &&
-		  grid[nextY][nextX] == dist) {
-		x = nextX;
-		y = nextY;
-	  }
-	}
-  }
-  return 1;
+	return 1;
 }
 
 int main(int argc, const char** argv)
 {
-	q.head=NULL;
+	q.head = NULL;
 	q.tail = NULL;
-	
+
 	return 0;
 }
