@@ -94,7 +94,17 @@ int search(int value, Node* root)
 	}
 	return 0;
 }
-
+int simpleHash(char* inputString)
+{
+	int i=0;
+	int sum=0;
+	while (inputString[i]!='\0')
+	{
+		sum+=inputString[i];
+		i++;
+	}
+	return sum;
+}
 int main(int argc, const char** argv) {
 
 	int arr[SIZE];
@@ -110,5 +120,9 @@ int main(int argc, const char** argv) {
 	inOrderTravers(root);
 	printf("\npost Order\n");
 	postOrderTravers(root);
+	printf("\n");
+	printf("hash(\"ab\")=%d\n",simpleHash("ab"));
+	
+	printf("hash(\"abc\")=%d\n",simpleHash("abc"));
 	return 0;
 }
